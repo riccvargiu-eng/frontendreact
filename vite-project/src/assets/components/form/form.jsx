@@ -34,6 +34,13 @@ function BaseForm() {
     else if (!/^[a-zA-Z0-9]+@(?:[a-zA-Z0-9]+\.)+[A-Za-z]+$/.test(email))
       newErrors.email = "Email is not valid";
 
+    if (!password) newErrors.password = "Password is required";
+    else if (password.length < 8)
+      newErrors.password = "Password must be at least 8 characters long";
+    else if (!/(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])/.test(password))
+      newErrors.password =
+        "Password must contain at least one uppercase letter, one number, and one special character";
+
     if (password !== confirmPassword) {
       newErrors.confirmPassword = "Le password non coincidono!";
     }
@@ -46,7 +53,7 @@ function BaseForm() {
     e.preventDefault();
     if (validateForm()) {
       alert("Form valido! Registrazione completata.");
-      console.log("Dati:", formData);
+      console.log("Dati:", form.values);
     } else {
       alert("Form not Valid! Please correct the errors and try again.");
     }
@@ -103,7 +110,7 @@ function BaseForm() {
           type="password"
           value={confirmPassword}
           onChange={(e) => {
-            setConfirmPassword(e.target.value);
+            form.setValue("confirmPassword", e.target.value);
             if (errors.confirmPassword) {
               setErrors((prev) => ({ ...prev, confirmPassword: "" }));
             }
