@@ -1,5 +1,6 @@
 import useForm from "../../hooks/hooks";
 import { useState } from "react";
+import "./form.css";
 
 function BaseForm() {
   const form = useForm({
@@ -42,7 +43,7 @@ function BaseForm() {
         "Password must contain at least one uppercase letter, one number, and one special character";
 
     if (password !== confirmPassword) {
-      newErrors.confirmPassword = "Le password non coincidono!";
+      newErrors.confirmPassword = "Passwords do not match!";
     }
 
     setErrors(newErrors);
@@ -52,8 +53,8 @@ function BaseForm() {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (validateForm()) {
-      alert("Form valido! Registrazione completata.");
-      console.log("Dati:", form.values);
+      alert("Form is valid! Registration completed.");
+      console.log("Data:", form.values);
     } else {
       alert("Form not Valid! Please correct the errors and try again.");
     }
